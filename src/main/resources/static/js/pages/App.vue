@@ -1,13 +1,24 @@
 <template>
-  <div>
-    <div v-if="!profile">Необходимо авторизоваться через
+  <v-app>
+    <v-app-bar app>
+      <v-toolbar-title>Sarafan</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <div v-if="profile">
+        {{profile.name}}&nbsp;
+      <v-btn icon href="/logout">
+         <v-icon>exit_to_app</v-icon>
+      </v-btn>
+      </div>
+    </v-app-bar>
+    <v-main>
+      <v-container v-if="!profile">Необходимо авторизоваться через
         <a href="/login">Google</a>
-    </div>
-    <div v-else>
-    <div>{{profile.name}}&nbsp; <a href="/logout">Выйти</a></div>
+      </v-container>
+      <v-container v-if="profile">
         <message-list :messages="messages"/>
-    </div>
-  </div>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
@@ -39,5 +50,7 @@ export default {
 </script>
 
 <style scoped>
-
+.main-app{
+  color: darkgreen;
+}
 </style>
