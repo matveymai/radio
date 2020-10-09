@@ -24,7 +24,6 @@
 <script>
 import MessageList from 'components/messages/MessageList.vue'
 import { addHandler } from 'util/ws.js'
-import { getIndex } from 'util/collections.js'
 
 export default {
   components:{
@@ -38,11 +37,26 @@ export default {
   },
   created() {
     addHandler(data => {
-      let index = getIndex(this.messages, data.id);
-      if (index>-1){
-        this.messages.splice(index, 1, data);
-      } else {
-        this.messages.push(data);
+      if (data.objectType === 'MESSAGE') {
+        const index = this.messages.findIndex(item => item.id === data.body.id)
+
+            switch (data.eventType){
+              case 'CREATE':
+              case 'UPDATE':
+                if (index > -1){
+                  this.messages.splice(index, 1, data.body)
+                }else {
+                  this.messages.push(data.body)
+                }
+                break
+              case 'REMOVE':
+                this.messages.splice(index, 1)
+                break
+              default:
+                console.error(`looks like the event type is unknown "${data.eventType}" `)
+            }
+        } else {
+        console.error(`looks like the object type is unknown "${data.objectType}" `)
       }
     })
   }
@@ -50,7 +64,5 @@ export default {
 </script>
 
 <style scoped>
-.main-app{
-  color: darkgreen;
-}
+
 </style>
