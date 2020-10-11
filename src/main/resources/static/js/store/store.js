@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import messagesApi from "api/messages"
+import messagesApi from "api/messages.js"
 
 Vue.use(Vuex)
 
@@ -10,7 +10,7 @@ export default new Vuex.Store({
         profile: frontendData.profile,
     },
     getters: {
-        sortedMessages: state => state.messages.sort((a,b) => -(a.id - b.id))
+        sortedMessages: state => (state.messages || []).sort((a,b) => -(a.id - b.id))
     },
     mutations: {
         addMessageMutation(state,message){
