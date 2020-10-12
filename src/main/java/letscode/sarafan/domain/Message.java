@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Table
 @ToString(of = {"id","text"})
 @EqualsAndHashCode(of = {"id"})
+@Data
 public class Message {
 
     @Id
@@ -25,27 +26,30 @@ public class Message {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime localDateTime;
 
-    public Long getId() {
-        return id;
-    }
+    @JsonView(Views.FullMessage.class)
+    private String link;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @JsonView(Views.FullMessage.class)
+    private String linkTitle;
 
-    public String getText() {
-        return text;
-    }
+    @JsonView(Views.FullMessage.class)
+    private String linkDescription;
 
-    public void setText(String text) {
-        this.text = text;
-    }
+    @JsonView(Views.FullMessage.class)
+    private String linkCover;
 
-    public LocalDateTime getLocalDateTime() {
-        return localDateTime;
-    }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
-    }
+//    public Long getId() { return id; }
+//
+//    public void setId(Long id) { this.id = id; }
+//
+//    public String getText() { return text; }
+//
+//    public void setText(String text) { this.text = text; }
+//
+//    public LocalDateTime getLocalDateTime() { return localDateTime; }
+//
+//    public void setLocalDateTime(LocalDateTime localDateTime) {
+//        this.localDateTime = localDateTime;
+//    }
 }
