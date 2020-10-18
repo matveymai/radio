@@ -6,8 +6,8 @@
       <message-row v-for="message in sortedMessages"
                    :key="message.id"
                    :message="message"
-                   :editMessage="editMessage"
-      />
+                   :editMessage="editMessage" />
+
     </v-layout>
   </v-container>
 </template>
