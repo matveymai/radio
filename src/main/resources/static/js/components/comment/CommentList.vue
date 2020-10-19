@@ -13,9 +13,7 @@
 
     </template>
 
-    <v-container>
-      <comment-form :messageId="messageId" />
-    </v-container>
+    <comment-form :messageId="messageId" />
 
   </v-list>
 </template>
